@@ -1,0 +1,11 @@
+1. If a variable or function starts with a capital letter it is considered exported and it can be accessed outside
+of the package.
+2. If we do not want to handle errors, just write '_' instead of err
+3. Data types and their default values: int = 0, float64 = 0.0, bool = false, string = "", rune = ""
+4. The compiler determines the type, if we do not
+   - variables are mutable but the their type cannot be changed (no colon in front of equal sign required)
+   - var v1, v2 = 1.2, 3.4
+   - var vr = "Hello"
+   - v4 := 2.4
+   - v4 = 5.4
+5. Runes are unicode representing character

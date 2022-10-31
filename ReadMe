@@ -14,6 +14,16 @@ In Go, the byte and rune data types are used to distinguish characters from inte
 In Go, there is no char data type. It uses byte and rune to represent character values.
 The byte data type represents ASCII characters while the rune data type represents a more broader set of 
 Unicode characters that are encoded in UTF-8 format.
-The default type for character values is rune, which means, if we don't declare a type explicitly when 
+The default type for character values is rune, which means, if we do not declare a type explicitly when 
 declaring a variable with a character value, then Go will infer the type as rune.
+6. Formatted print
+- %d integer
+- %c character
+- %f float
+- %t boolean
+- %s string
+- %o base 8
+- %x base 16
+- %v guesses based on data type
+- %T type of supplied value
 

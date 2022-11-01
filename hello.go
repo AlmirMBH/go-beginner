@@ -157,36 +157,7 @@ func main() {
 	}
 
 	// guessing game
-	secs := time.Now().Unix()
-	rand.Seed(secs)
-	randNumber := rand.Intn(50) + 1
-
-	for true {
-		fmt.Print("Guess a number between 0 and 50:")
-		// printLine("Random number is: ", randNumber)
-		reader := bufio.NewReader(os.Stdin) // standard input
-		guess, err := reader.ReadString('\n')
-
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		guess = strings.TrimSpace(guess)
-		iGuess, err := strconv.Atoi(guess)
-
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		if iGuess > randNumber {
-			printLine("Pick a Lower Value")
-		} else if iGuess < randNumber {
-			printLine("Pick a Higher Value")
-		} else {
-			printLine("Your guess is correct!")
-			break
-		}
-	}
+    GuessingGame()
 
 	// arrays
 	aNums := []int{1, 2, 3}
@@ -254,20 +225,20 @@ func main() {
 
 
     // functions
-    sum := getSum(4, 5)
+    sum := GetSum(4, 5)
     printLine("The function sum is:", sum)
-    printLine(getTwoValues(4))
-    printLine(getQuotient(3.44, 5.22))
-    printLine("The function sum is:", getVariadicSum(5, 3, 4, 5))
+    printLine(GetTwoValues(4))
+    printLine(GetQuotient(3.44, 5.22))
+    printLine("The variadic function sum is:", GetVariadicSum(5, 3, 4, 5))
 
     varArr := []int{1, 2, 3, 4, 5, 6}
-    printLine("The function sum is:", getArraySum(varArr))
+    printLine("The array function sum is:", GetArraySum(varArr))
 
 
     // integers & pointers
     f3 := 8
     printLine("F3 before function processing", f3)
-    changeValue(&f3)
+    ChangeValue(&f3)
     printLine("F3 after function processing", f3)
 
     f4 := 33
@@ -281,115 +252,15 @@ func main() {
 
     // arrays & pointers
     pArr := [4]int{1, 2, 3, 4}
-    dblArrVals(&pArr)
+    DblArrVals(&pArr)
     printLine(pArr)
 
     isSlice := []float64{11, 13, 17}
-    fmt.Printf("Average: %.3f\n", getAverage(isSlice ...))
-
+    fmt.Printf("Average: %.3f\n", GetAverage(isSlice ...))
 
     // files
-    createFile()
-
-    
+    CreateFile()
 }
-
-
-// functions
-func getAverage(nums ...float64) float64 {
-    var sum float64 = 0.0
-    var numSize float64 = float64(len(nums))
-
-    for _, val := range nums{
-        sum += val
-    }
-    return sum / numSize
-}
-
-func getSum(x int, y int) int {
-    return x + y
-}
-
-func getTwoValues(x int) (int, int) {
-    return x + 1, x + 2
-}
-
-func getQuotient(x float64, y float64) (ans float64, err error) {
-    if y == 0 {
-        return 0, fmt.Errorf("you cannot divide by zero")
-    }else{
-        return math.Round(x / y), nil
-    }
-}
-
-// variadic functions (receiving an unknown number of values)
-func getVariadicSum(nums... int) int {
-    sum := 0
-    for _, num := range nums {
-        sum += num
-    }
-    return sum
-}
-
-func getArraySum(arr []int) int {
-    sum := 0
-    for _, num := range arr {
-        sum += num
-    }
-    return sum
-}
-
-
-// pointers
-func changeValue(f3 *int) int {
-    *f3 = 12
-    return *f3
-}
-
-func dblArrVals(arr *[4]int) {
-    for x := 0; x < len(arr); x++ {
-        arr[x] *= 2
-    }
-}
-
-
-// files
-func createFile() {
-    f, err := os.Create("data.txt")
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer f.Close()
-
-    iPrimeArr := []int{2, 3, 5, 7, 11}
-    var sPrimeArr []string
-    for _, i := range iPrimeArr {
-        sPrimeArr = append(sPrimeArr, strconv.Itoa(i)) // int -> str
-    }
-    for _, num := range sPrimeArr {
-        _, err := f.WriteString(num + "\n")
-        if err != nil {
-            log.Fatal(err)
-        }
-    }
-
-    f, err = os.Open("data.txt")
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer f.Close()
-    scan1 := bufio.NewScanner(f)
-    for scan1.Scan() {
-        printLine("Prime: ", scan1.Text())
-    }
-
-    if err := scan1.Err(); err != nil {
-        log.Fatal(err)
-    }
-}
-
-
-
 
 
 // 01:32:22

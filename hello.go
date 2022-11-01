@@ -25,7 +25,7 @@ func main() {
 
 	if err == nil {
 		printLine("Hello", name)
-		printLine("The type of the enter value is:", reflect.TypeOf(name))
+		printLine("The type of the entered value is:", reflect.TypeOf(name))
 		printLine("The type of the additional value is:", reflect.TypeOf('@'))
 	} else {
 		log.Fatal(err)
@@ -208,6 +208,8 @@ func main() {
 		fmt.Printf("Value on index %d is %d\n", i, v)
 	}
 
+
+    // matrix
 	arr3 := [2][2]int{
 		{1, 2},
 		{3, 4},
@@ -215,12 +217,179 @@ func main() {
 
 	for i := 0; i < len(arr3); i++ {
 		for j := 0; j < len(arr3[i]); j++ {
-			fmt.Printf("Array 3 element in loop on index i %d and j %d is: ", i, j)
-			printLine(arr3[i][j])
+			fmt.Printf("Array 3 element in loop on index i %d and j %d is: %d\n", i, j, arr3[i][j])
 		}
 	}
 
 
-    // 1:00:08
+    // slice array
+	byteArr := []byte{'a', 'b', 'c'}
+	bStr := string(byteArr[:]) // [:] take all, [:2] slice and take the first two elements
+	printLine("This is a byte array converted to", reflect.TypeOf(bStr), bStr)
 
+    sl1 := make([]string, 5)
+    sl1[0] = "Society"
+    sl1[1] = "of"
+    sl1[2] = "the"
+    sl1[3] = "Simulated"
+    sl1[4] = "Universe"
+    printLine("Array size", len(sl1))
+
+    for i := 0; i < len(sl1); i++ {
+        fmt.Printf("SL1 element on index %d is %s\n", i, sl1[i])
+    }
+
+    counter := 0
+    for _, i := range sl1 {
+        fmt.Printf("SL1 element in range on index %d is %s\n", counter, i)
+        counter++
+    }
+
+    sl2 := []int{1, 2, 3, 4, 5, 6, 7}
+    printLine("First three elements", sl2[:3])
+    printLine("Last three elements", sl2[3:])
+    printLine("Last element", len(sl2)-0)
+    sl2 = append(sl2, 12)
+    printLine("Append to sl2:", sl2)
+
+
+    // functions
+    sum := getSum(4, 5)
+    printLine("The function sum is:", sum)
+    printLine(getTwoValues(4))
+    printLine(getQuotient(3.44, 5.22))
+    printLine("The function sum is:", getVariadicSum(5, 3, 4, 5))
+
+    varArr := []int{1, 2, 3, 4, 5, 6}
+    printLine("The function sum is:", getArraySum(varArr))
+
+
+    // integers & pointers
+    f3 := 8
+    printLine("F3 before function processing", f3)
+    changeValue(&f3)
+    printLine("F3 after function processing", f3)
+
+    f4 := 33
+    var f4Ptr *int = &f4
+    fmt.Printf("F4 pointer to memory location %v\n", f4Ptr)
+    fmt.Printf("F4 pointer value %v\n", *f4Ptr)  
+
+    *f4Ptr = 22
+    fmt.Printf("F4 pointer value modified %v\n", *f4Ptr)  
+
+
+    // arrays & pointers
+    pArr := [4]int{1, 2, 3, 4}
+    dblArrVals(&pArr)
+    printLine(pArr)
+
+    isSlice := []float64{11, 13, 17}
+    fmt.Printf("Average: %.3f\n", getAverage(isSlice ...))
+
+
+    // files
+    createFile()
+
+    
 }
+
+
+// functions
+func getAverage(nums ...float64) float64 {
+    var sum float64 = 0.0
+    var numSize float64 = float64(len(nums))
+
+    for _, val := range nums{
+        sum += val
+    }
+    return sum / numSize
+}
+
+func getSum(x int, y int) int {
+    return x + y
+}
+
+func getTwoValues(x int) (int, int) {
+    return x + 1, x + 2
+}
+
+func getQuotient(x float64, y float64) (ans float64, err error) {
+    if y == 0 {
+        return 0, fmt.Errorf("you cannot divide by zero")
+    }else{
+        return math.Round(x / y), nil
+    }
+}
+
+// variadic functions (receiving an unknown number of values)
+func getVariadicSum(nums... int) int {
+    sum := 0
+    for _, num := range nums {
+        sum += num
+    }
+    return sum
+}
+
+func getArraySum(arr []int) int {
+    sum := 0
+    for _, num := range arr {
+        sum += num
+    }
+    return sum
+}
+
+
+// pointers
+func changeValue(f3 *int) int {
+    *f3 = 12
+    return *f3
+}
+
+func dblArrVals(arr *[4]int) {
+    for x := 0; x < len(arr); x++ {
+        arr[x] *= 2
+    }
+}
+
+
+// files
+func createFile() {
+    f, err := os.Create("data.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer f.Close()
+
+    iPrimeArr := []int{2, 3, 5, 7, 11}
+    var sPrimeArr []string
+    for _, i := range iPrimeArr {
+        sPrimeArr = append(sPrimeArr, strconv.Itoa(i)) // int -> str
+    }
+    for _, num := range sPrimeArr {
+        _, err := f.WriteString(num + "\n")
+        if err != nil {
+            log.Fatal(err)
+        }
+    }
+
+    f, err = os.Open("data.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer f.Close()
+    scan1 := bufio.NewScanner(f)
+    for scan1.Scan() {
+        printLine("Prime: ", scan1.Text())
+    }
+
+    if err := scan1.Err(); err != nil {
+        log.Fatal(err)
+    }
+}
+
+
+
+
+
+// 01:32:22

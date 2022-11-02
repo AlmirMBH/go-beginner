@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func GuessingGame() {
+func guessingGame() {
 	secs := time.Now().Unix()
 	rand.Seed(secs)
 	randNumber := rand.Intn(50) + 1

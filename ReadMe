@@ -26,4 +26,29 @@ declaring a variable with a character value, then Go will infer the type as rune
 - %x base 16
 - %v guesses based on data type
 - %T type of supplied value
+7. Exactly one of O_RDONLY, O_WRONLY or O_RDWR must be specified
+- O_RDONLY: open the file read-only
+- O_WRONLY: open the file write-only
+- O_RDWR: open the file read and write
 
+These below can be ordered
+- O_APPEND: append data to the file when writing
+- O_CREATE: create a new file if none exist
+- O_EXCL: used with O_CREATE, file must not exist
+- O_SYNC: open for synchronous I/O
+- O_TRUNC: truncate regular writable file when opened
+
+8. PACKAGES
+IMPORTANT: In order to avoid errors when working with packages, configure the VSC.
+- Go to file -> preferences -> settings
+- in search type in gopls
+- click on edit settings.json
+- add "gopls": { "experimentalWorkspaceModule": true, }
+8.1. Create a folder app and go to it via terminal
+8.2. Type in: go mod init example/project
+- Go modules allow us to manage libraries. They contain one project or library and a collection of go packages
+- go.mod file contains the name of the module and version of modules that our module depends on
+- For example, in go.mod you can find sth. like 
+      module example/project
+      go 1.19
+      

@@ -13,6 +13,7 @@ func IntegersPointers(){
 
     f4 := 33
     var f4Ptr *int = &f4
+    fmt.Printf("F4 TEST %v\n", &f4)
     fmt.Printf("F4 pointer to memory location %v\n", f4Ptr)
     fmt.Printf("F4 pointer value %v\n", *f4Ptr)  
 

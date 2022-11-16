@@ -13,6 +13,7 @@ func casting(){
 
 	var3 := "500000"
 	var4, err := strconv.Atoi(var3)
+
 	printLine("String casted to integer", var4, err, reflect.TypeOf(var4))
 
 	var5 := 500000

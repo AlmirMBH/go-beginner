@@ -52,3 +52,8 @@ IMPORTANT: In order to avoid errors when working with packages, configure the VS
       module example/project
       go 1.19
       
+9. With generics, we can specify the data type to be used at a later time. It is mainly used when we want to 
+create functions that can work with multiple data types
+
+https://www.youtube.com/watch?v=YzLrWHZa-Kc
+TILL: 2:00:00

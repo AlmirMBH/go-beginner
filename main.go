@@ -8,6 +8,9 @@ var printLine = fmt.Println
 
 func main() {
 
+    printLine("\nOOPSHIT")
+    mainOOP()
+
 	printLine("\nCOLLECT USER INPUT VIA CONSOLE")
     collectInput()
 
@@ -66,6 +69,9 @@ func main() {
 
     printLine("\nCLTEST")
     mains()
+
+    printLine("\nMAPS")
+    maps()
 
     printLine("\nGUESSING GAME")
     guessingGame()
